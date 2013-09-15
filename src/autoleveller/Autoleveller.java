@@ -23,7 +23,9 @@ package autoleveller;
 
 public class Autoleveller
 {
-	public static final String VERSION = "0.7.4";
+	public static final int MAJOR = 0;
+	public static final double MINOR = 7.4;
+	public static final String VERSION = MAJOR + "." + MINOR;
 	
     public static void main(String[] args)
     {

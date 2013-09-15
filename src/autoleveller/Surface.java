@@ -45,7 +45,7 @@ public class Surface
     {
     	_probe = probe;
     	_outputFile = outputFile;
-    	double units = (_probe.getUnits().equalsIgnoreCase("millimeters")) ? 5 : 0.375;
+    	double units = (_probe.getUnits().equalsIgnoreCase("millimeters")) ? 5 : 0.187;
     	_segFile = new GCodeBreaker(inputFile, units);
     }
     
