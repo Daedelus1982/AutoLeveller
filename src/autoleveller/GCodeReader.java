@@ -41,7 +41,7 @@ import javax.vecmath.Point3d;
 public class GCodeReader
 {
 	private DecimalFormatSymbols _symbols = new DecimalFormatSymbols();
-	protected DecimalFormat _localFormat = new DecimalFormat("#.####");
+	protected DecimalFormat _localFormat = new DecimalFormat("#.#####");
     private Pattern _floatPt = Pattern.compile("-?[0-9]*[\\.,]?[0-9]+");
     private Pattern _variable = Pattern.compile("#[1-9][0-9]*");
     private Pattern _varAssign = Pattern.compile(_variable.pattern() + "=" + _floatPt.pattern());
