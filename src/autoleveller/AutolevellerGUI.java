@@ -30,6 +30,7 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -47,6 +48,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.SAXParser;
 
 public class AutolevellerGUI extends JFrame
 
@@ -278,4 +282,20 @@ public class AutolevellerGUI extends JFrame
     	
     	return true;
     }
+
+	public static int checkLatestMajorVersion(String url, String appID) throws MalformedURLException 
+	{
+		try
+		{
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			dBuilder.parse(url);
+		}
+		catch (Exception e)
+		{
+			throw new MalformedURLException();
+		}
+		
+		return 0;
+	}
 }
