@@ -66,7 +66,7 @@ public class DoubleManipulator
 		if (isNumber(exponentDouble))
 		{
 			double inputDouble = Double.parseDouble(exponentDouble);
-			inputDouble = (double)Math.round(inputDouble * 10000) / 10000;
+			inputDouble = (double)Math.round(inputDouble * 100000) / 100000;
 			return _df.format(inputDouble);
 		}
 		
