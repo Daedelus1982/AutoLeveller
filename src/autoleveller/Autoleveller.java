@@ -21,10 +21,23 @@
 
 package autoleveller;
 
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 public class Autoleveller
 {
 	public static final int MAJOR = 0;
-	public static final double MINOR = 7.4;
+	public static final double MINOR = 7.7;
 	public static final String VERSION = MAJOR + "." + MINOR;
 	
     public static void main(String[] args)
@@ -32,4 +45,63 @@ public class Autoleveller
         AutolevellerGUI autoleveller = new AutolevellerGUI();
         autoleveller.init();
     }
+    
+    public static int checkLatestMajorVersion(Element appElement) throws MalformedURLException 
+	{
+		String majorFromSite = appElement.getElementsByTagName("MAJOR").item(0).getTextContent();
+		return Integer.parseInt(majorFromSite);			
+	}
+	
+	public static double checkMinorVersion(Element appElement) throws MalformedURLException
+	{
+		String minorFromSite = appElement.getElementsByTagName("MINOR").item(0).getTextContent();
+		return Double.parseDouble(minorFromSite);
+	}
+	
+	public static Element getAppElement(String url, String appID) throws Exception
+	{
+		//URLConnection allows a timeout to be set
+		URL webaddress = new URL(url);
+		URLConnection con = webaddress.openConnection();
+		con.setConnectTimeout(5000); //5 second timeout
+		con.setReadTimeout(10000); //10 second timeout
+		InputStream stream = con.getInputStream();
+		
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		Document xmlDoc = dBuilder.parse(stream);
+		NodeList nodes = xmlDoc.getElementsByTagName("APP");
+		for (int i = 0; i < nodes.getLength(); i++)
+		{
+			Node node = nodes.item(i);
+			if (node.getNodeType() == Node.ELEMENT_NODE)
+			{
+				Element element = (Element) node;
+				if (element.getAttribute("id").equals(appID))
+					return element;
+			}
+		}
+		throw new Exception();
+	}
+	
+	public static boolean isLatest()
+	{
+		try
+		{
+			Element autoLElement = getAppElement("http://autoleveller.co.uk/Version.xml", "00");
+			int currentMajorVersion = checkLatestMajorVersion(autoLElement);
+			double currentMinorVersion = checkMinorVersion(autoLElement);
+			if (currentMajorVersion > MAJOR)
+				return false;
+			if ((currentMajorVersion == MAJOR) && (currentMinorVersion > MINOR))
+				return false;
+			
+			return true;
+		}
+		catch(Exception ex)
+		{
+			// if there is any problem return true
+			return true;
+		}
+	}
 }

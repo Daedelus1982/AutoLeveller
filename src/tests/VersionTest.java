@@ -1,11 +1,10 @@
 package tests;
 
-import java.net.MalformedURLException;
-
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.w3c.dom.Element;
 
-import autoleveller.AutolevellerGUI;
+import autoleveller.Autoleveller;
 
 public class VersionTest 
 {
@@ -15,11 +14,12 @@ public class VersionTest
 	{
 		try
 		{
-			int major = AutolevellerGUI.checkLatestMajorVersion("www.autoleveller.co.uk/nonexistenturl.xml", "00");
+			Element element = Autoleveller.getAppElement("www.autoleveller.co.uk/nonexistenturl.xml", "00");
+			Autoleveller.checkLatestMajorVersion(element);
 		}
-		catch (MalformedURLException ex)
+		catch (Exception ex)
 		{
-			//should catch thins as the url does not exist
+			//should catch this as the url does not exist
 			assertTrue(true);
 			return;
 		}
@@ -27,4 +27,25 @@ public class VersionTest
 		assertTrue(false);
 	}
 
+	@Test
+	public void xmlExist()
+	{
+		int major;
+		double minor;
+		
+		try
+		{
+			Element element = Autoleveller.getAppElement("http://autoleveller.co.uk/test/testVersion.xml", "00");
+			major = Autoleveller.checkLatestMajorVersion(element);
+			minor = Autoleveller.checkMinorVersion(element);
+		}
+		catch (Exception ex)
+		{
+			assertTrue(false);
+			return;
+		}
+		
+		assertEquals(3, major);
+		assertEquals(7.3, minor, 0);
+	}
 }

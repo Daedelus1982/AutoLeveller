@@ -56,7 +56,7 @@ public class SegmentorTest
         
         String modifiedString = _breaker.createStringFromPoint(original, point);
         
-        assertEquals("G01 X5.3455 Y6.5645 Z0.6000", modifiedString);
+        assertEquals("G01 X5.34546 Y6.56455 Z0.6000", modifiedString);
     }
     
     @Test

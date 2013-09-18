@@ -30,7 +30,6 @@ import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Map;
 
 import javax.swing.BorderFactory;
@@ -48,9 +47,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.SAXParser;
 
 public class AutolevellerGUI extends JFrame
 
@@ -96,19 +92,18 @@ public class AutolevellerGUI extends JFrame
         this.add(probePanel, BorderLayout.WEST);
         this.pack();
         this.setVisible(true);
+        if (!Autoleveller.isLatest())
+        	JOptionPane.showMessageDialog(null, getUpdatePane(), "Version", JOptionPane.INFORMATION_MESSAGE);
     }
     
-    private JEditorPane getAboutContent()
+    private JEditorPane getEditorPaneForURL(String text)
     {
-    	JEditorPane text = new JEditorPane("text/html", "<html><center><strong>AutoLeveller</strong> - <a href=\"mailto:daedelus1982@gmail.com\">Email Me</a><br>" +
-			"Version: " + Autoleveller.VERSION + ", license - <a href=\"http://www.gnu.org/licenses/\">GPLv2</a><br>" +
-			"Copyright (c) 2013 James Hawthorne PhD<br>" +
-			"<a href=\"http://www.autoleveller.co.uk/\">www.autoleveller.co.uk</a></center></html>");
+    	JEditorPane pane = new JEditorPane("text/html", text);
     	
-    	text.setEditable(false);
+    	pane.setEditable(false);
     	//text.setBackground((new JLabel()).getBackground());
     	
-    	text.addHyperlinkListener(new HyperlinkListener() {
+    	pane.addHyperlinkListener(new HyperlinkListener() {
 			@Override
 			public void hyperlinkUpdate(HyperlinkEvent hle) 
 			{
@@ -123,7 +118,22 @@ public class AutolevellerGUI extends JFrame
 			}
 		});
     	
-    	return text;
+    	return pane;
+    }
+    
+    private JEditorPane getAboutContent()
+    {
+    	return getEditorPaneForURL("<html><center><strong>AutoLeveller</strong> - <a href=\"mailto:daedelus1982@gmail.com\">Email Me</a><br>" +
+			"Version: " + Autoleveller.VERSION + ", license - <a href=\"http://www.gnu.org/licenses/\">GPLv2</a><br>" +
+			"Copyright (c) 2013 James Hawthorne PhD<br>" +
+			"<a href=\"http://www.autoleveller.co.uk/\">www.autoleveller.co.uk</a></center></html>");
+    }
+    
+    private JEditorPane getUpdatePane()
+    {
+    	return getEditorPaneForURL("<html><center>There is a later version of AutoLeveller available.<br>" +
+    			"To download, please visit:<br>" + 
+    			"<a href=\"http://www.autoleveller.co.uk/\">www.autoleveller.co.uk</a></center></html>");
     }
     
     private void setFileInfoPanel(Map<String, Long> states, Rectangle2D area)
@@ -283,19 +293,5 @@ public class AutolevellerGUI extends JFrame
     	return true;
     }
 
-	public static int checkLatestMajorVersion(String url, String appID) throws MalformedURLException 
-	{
-		try
-		{
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			dBuilder.parse(url);
-		}
-		catch (Exception e)
-		{
-			throw new MalformedURLException();
-		}
-		
-		return 0;
-	}
+	
 }
