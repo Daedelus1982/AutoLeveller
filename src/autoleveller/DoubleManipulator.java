@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 public class DoubleManipulator 
 {
 	private Pattern _floatPt = Pattern.compile("[0-9]*[\\.,]?[0-9]+([eE][-+]?[0-9]+)?");
-	private DecimalFormat _df = new DecimalFormat("#.####"); //remove .0 where possible
+	private DecimalFormat _df = new DecimalFormat("#.#####"); //remove .0 where possible
 	private DecimalFormatSymbols _symbols = new DecimalFormatSymbols();
 	
 	public DoubleManipulator()
