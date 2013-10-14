@@ -62,7 +62,7 @@ public class AutolevellerGUI extends JFrame
     private File _outputFile = null;
     private JTextArea _fileInfo = new JTextArea(5, 10);
     private JTextArea _probeInfo = new JTextArea(5, 10);
-    private JButton _inputBtn = new JButton("Browse");
+    private JButton _inputBtn = new JButton("Browse for GCode");
     private JComboBox<String> _software = new JComboBox<String>(new String[]{"LinuxCNC", "Mach3"});
     private Surface _surface;
     
