@@ -185,26 +185,7 @@ public class ProbeSettingsPanel extends JPanel implements FocusListener
     public void resetVariables(Map<String, Long> settings, Rectangle2D millArea) 
     {
     	if (GCodeReader.getUnits(settings).equals(""))
-    	{
-    		JPanel unitSelector = new JPanel(new GridLayout(3, 1));
-    		ButtonGroup unitRadios = new ButtonGroup();
-    		JRadioButton inchButton = new JRadioButton("inches");
-    		JRadioButton mmButton = new JRadioButton("millimeters");
-    		
-    		unitRadios.add(inchButton);
-    		unitRadios.add(mmButton);
-    		unitSelector.add(new JLabel("<html>The selected file does not state the units to use (G20/G21).<br>Please select either inches or millimeters and press OK</html>"));
-    		unitSelector.add(inchButton);
-    		unitSelector.add(mmButton);
-    		inchButton.setSelected(true);
-    		
-    		JOptionPane.showMessageDialog(null,  unitSelector);
-    		
-    		if (inchButton.isSelected())
-    			settings.put("G20", 1L);
-    		else
-    			settings.put("G21", 1L);
-    	}
+    		settings.put(getUnitsFromDialog(), 1L);
     	
     	_units.setText(GCodeReader.getUnits(settings));
     	_xstart.setText(String.valueOf(millArea.getX()));
@@ -236,6 +217,28 @@ public class ProbeSettingsPanel extends JPanel implements FocusListener
     {
     	if (box.getText().equals(""))
     		box.setText(value);
+    }
+    
+    private String getUnitsFromDialog()
+    {
+    	JPanel unitSelector = new JPanel(new GridLayout(3, 1));
+		ButtonGroup unitRadios = new ButtonGroup();
+		JRadioButton inchButton = new JRadioButton("inches");
+		JRadioButton mmButton = new JRadioButton("millimeters");
+		
+		unitRadios.add(inchButton);
+		unitRadios.add(mmButton);
+		unitSelector.add(new JLabel("<html>The selected file does not state the units to use (G20/G21).<br>Please select either inches or millimeters and press OK</html>"));
+		unitSelector.add(inchButton);
+		unitSelector.add(mmButton);
+		inchButton.setSelected(true);
+		
+		JOptionPane.showMessageDialog(null,  unitSelector);
+		
+		if (inchButton.isSelected())
+			return "G20";
+		else
+			return "G21";
     }
     
     public void verify()
