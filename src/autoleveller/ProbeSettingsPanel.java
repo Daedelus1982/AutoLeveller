@@ -31,8 +31,11 @@ import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -181,10 +184,25 @@ public class ProbeSettingsPanel extends JPanel implements FocusListener
     
     public void resetVariables(Map<String, Long> settings, Rectangle2D millArea) 
     {
-    	_units.setText(GCodeReader.getUnits(settings));
-    	if (_units.getText().equals(""))
-    		return; //no units found in file so do not change anything
+    	if (GCodeReader.getUnits(settings).equals(""))
+    	{
+    		JPanel unitSelector = new JPanel(new GridLayout(2, 1));
+    		ButtonGroup unitRadios = new ButtonGroup();
+    		JRadioButton inchButton = new JRadioButton("inches");
+    		JRadioButton mmButton = new JRadioButton("millimeters");
+    		
+    		unitRadios.add(inchButton);
+    		unitRadios.add(mmButton);
+    		unitSelector.add(inchButton);
+    		unitSelector.add(mmButton);
+    		inchButton.setSelected(true);
+    		
+    		JOptionPane.showMessageDialog(null,  unitSelector);
+    		
+    		settings.put("G21", 1L);
+    	}
     	
+    	_units.setText(GCodeReader.getUnits(settings));
     	_xstart.setText(String.valueOf(millArea.getX()));
     	_ystart.setText(String.valueOf(millArea.getY()));
     	_millWidth.setText(String.valueOf(millArea.getWidth()));
