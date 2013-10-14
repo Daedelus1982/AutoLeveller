@@ -186,20 +186,24 @@ public class ProbeSettingsPanel extends JPanel implements FocusListener
     {
     	if (GCodeReader.getUnits(settings).equals(""))
     	{
-    		JPanel unitSelector = new JPanel(new GridLayout(2, 1));
+    		JPanel unitSelector = new JPanel(new GridLayout(3, 1));
     		ButtonGroup unitRadios = new ButtonGroup();
     		JRadioButton inchButton = new JRadioButton("inches");
     		JRadioButton mmButton = new JRadioButton("millimeters");
     		
     		unitRadios.add(inchButton);
     		unitRadios.add(mmButton);
+    		unitSelector.add(new JLabel("<html>The selected file does not state the units to use (G20/G21).<br>Please select either inches or millimeters and press OK</html>"));
     		unitSelector.add(inchButton);
     		unitSelector.add(mmButton);
     		inchButton.setSelected(true);
     		
     		JOptionPane.showMessageDialog(null,  unitSelector);
     		
-    		settings.put("G21", 1L);
+    		if (inchButton.isSelected())
+    			settings.put("G20", 1L);
+    		else
+    			settings.put("G21", 1L);
     	}
     	
     	_units.setText(GCodeReader.getUnits(settings));
