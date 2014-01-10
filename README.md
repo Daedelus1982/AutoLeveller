@@ -12,7 +12,7 @@ Probes the surface to be etched then uses this information to adjust the Z heigh
 ![w/o AutoLeveller](http://cncsoftwaretools.com/autoleveller/wp-content/uploads/2013/10/badcircuit.jpg "Circuit milled without AutoLeveller")
 Circuit milled without AutoLeveller
 
-![with AutoLeveller](http://cncsoftwaretools.com/autoleveller/wp-content/uploads/2013/10/badcircuit.jpg "Circuit milled with AutoLeveller")
+![with AutoLeveller](http://cncsoftwaretools.com/autoleveller/wp-content/uploads/2013/10/goodcircuit.jpg "Circuit milled with AutoLeveller")
 Circuit milled with AutoLeveller
 
 For more information, download the executable, donate, please visit the [AutoLeveller website](http://www.autoleveller.co.uk).
