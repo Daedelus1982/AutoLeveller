@@ -35,7 +35,7 @@ public class VersionTest
 		
 		try
 		{
-			Element element = Autoleveller.getAppElement("http://autoleveller.co.uk/test/testVersion.xml", "00");
+			Element element = Autoleveller.getAppElement("http://autoleveller.co.uk/xmlTest/Version.xml", "00");
 			major = Autoleveller.checkLatestMajorVersion(element);
 			minor = Autoleveller.checkMinorVersion(element);
 		}

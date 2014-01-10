@@ -56,7 +56,7 @@ public class ProbeTest2
     @Test
     public void testExtremities2()
     {
-    	_probe = Probe.createProbe("linuxCNC", "millimeters", -80, 10, 75, 60, 200, -1, 5, 20, 2);
+    	_probe = Probe.createProbe("Mach3", "millimeters", -80, 10, 75, 60, 200, -1, 5, 20, 2);
         SimplePoint3DCNC blExreme = new SimplePoint3DCNC(-80, 10, "null");
         SimplePoint3DCNC trEextreme = new SimplePoint3DCNC(-5, 70, "null");
         
@@ -165,7 +165,7 @@ public class ProbeTest2
     @Test
     public void exponentCheck()
     {
-    	_probe = Probe.createProbe("linuxCNC", "inches", -0.0379, -0.0447, 1.5332000000000001, 1.2861, 5, -0.0625, 0.250, 1, 0.125);
+    	_probe = Probe.createProbe("Mach3", "inches", -0.0379, -0.0447, 1.5332000000000001, 1.2861, 5, -0.0625, 0.250, 1, 0.125);
     	SimplePoint3DCNC point = new SimplePoint3DCNC(1.2193, 0.7271, "null");
         
         SimplePoint3DCNC tlPoint = _probe.getTLPoint(point);
@@ -182,8 +182,8 @@ public class ProbeTest2
     	SimplePoint3DCNC intPointHoriz = _probe.interpolateX(intPointLeft, intPointRight, point);
     	point.setZ(intPointHoriz.getZ());
     	
-    	assertEquals("[#525+0.0005*#532-0.0005*#525]", _dm.formatOutput(intPointLeftSave));
-    	assertEquals("[#526+0.0005*#533-0.0005*#526]", _dm.formatOutput(intPointRightSave));
-    	assertEquals("[intPointLeftSave+0.9199*intPointRightSave-0.9199*intPointLeftSave]", _dm.formatOutput(intPointHoriz.getZ()));
+    	assertEquals("[#525+0.00054*#532-0.00054*#525]", _dm.formatOutput(intPointLeftSave));
+    	assertEquals("[#526+0.00054*#533-0.00054*#526]", _dm.formatOutput(intPointRightSave));
+    	assertEquals("[intPointLeftSave+0.91991*intPointRightSave-0.91991*intPointLeftSave]", _dm.formatOutput(intPointHoriz.getZ()));
     }
 }

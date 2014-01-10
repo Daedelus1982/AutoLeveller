@@ -24,7 +24,7 @@ public class ProbeTest
 	            {new SimplePoint3DCNC(10, 30, "#506"), new SimplePoint3DCNC(20, 30, "#507"), new SimplePoint3DCNC(30, 30, "#508")}};
 		
 		//create the same array
-		_probe = Probe.createProbe("linuxCNC", "millimeters", 10, 10, 20, 20, 200, -0.1, 10, 20, 2);
+		_probe = Probe.createProbe("Mach3", "millimeters", 10, 10, 20, 20, 200, -0.1, 10, 20, 2);
 		_dm = new DoubleManipulator();
 	}
 
